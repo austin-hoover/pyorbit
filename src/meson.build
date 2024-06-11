@@ -13,6 +13,7 @@ base = meson.current_source_dir() + '/core'
 dependencies = []
 
 dependencies += dependency('fftw3', version: '>= 3.0.0', required: true)
+dependencies += dependency('mpich', version: '>= 4.0.0', required: true)
 
 sources = files([
     'linac/wrap_linacmodule.cc',
@@ -246,7 +247,7 @@ inc = include_directories([
 core_lib = library('core',
     sources: sources,
     include_directories: inc,
-    cpp_args: ['-fPIC', '-std=c++11'],
+    cpp_args: ['-fPIC', '-std=c++11', '-DUSE_MPI=1'],
     override_options: ['b_lundef=false'],
     dependencies: dependencies,
     install: true,
